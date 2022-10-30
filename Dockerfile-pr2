@@ -36,6 +36,6 @@ FROM cycodehq.jfrog.io/idans/test3repo@sha256:1ab4ce81b2bf00f31bf214586cfc743778
 WORKDIR /app
 ARG VERSION
 RUN echo "$VERSION" >>VERSION.txt
-COPY --from=publish /app/Cycode.Marketplace.Runners.GitCloner/Cycode.GitCloner.EntryPoint/out .
+COPY --from=build-env /app/Cycode.Marketplace.Runners.GitCloner/Cycode.GitCloner.EntryPoint/out .
 USER rrr
 ENTRYPOINT ["dotnet", "Cycode.GitCloner.EntryPoint.dll"]
