@@ -30,14 +30,13 @@ RUN sh -c '[ -z "${TESTS_DIR}" ]' || dotnet restore --configfile /tmp/nuget.conf
 USER cycode
 RUN "cd workdir"
 CMD ["dotnet", "test","--no-restore","--verbosity" ,"minimal" ,"--filter" ,"Category!=Integration","--collect:\"XPlat Code Coverage\"","--logger:trx"]
-ENTRYPOINT dotnet "Cycode.GitCloner.EntryPoint.dll" ${SOMETHING}
 
 ###### runtime image ######
 FROM cycodehq.jfrog.io/idans/test3repo@sha256:1ab4ce81b2bf00f31bf214586cfc743778c009caeb69c0469a6cade0f71820d4 AS app
 WORKDIR /app
 ARG VERSION
 RUN echo "$VERSION" >>VERSION.txt
-COPY --from=publish /app/Cycode.Marketplace.Runners.GitCloner/Cycode.GitCloner.EntryPoint/out .
+COPY --from=build-env /app/Cycode.Marketplace.Runners.GitCloner/Cycode.GitCloner.EntryPoint/out .
 USER roy
 EXPOSE 84
 ENTRYPOINT ["dotnet", "Cycode.GitCloner.EntryPoint.dll"]
