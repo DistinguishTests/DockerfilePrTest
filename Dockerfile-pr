@@ -15,10 +15,6 @@ WORKDIR /app/Cycode.Marketplace.Runners.GitCloner/Cycode.GitCloner.EntryPoint
 COPY ./_nuget.config /tmp/nugekt.config
 RUN dotnet restore --configfile /tmp/nuget.config
 
-###### publish ######
-FROM build-environment AS publish
-RUN apt-get update
-
 RUN apk add -U curl=7.83.1-r3 bash=5.1.16-r2 ca-certificates=20220614-r0 openssl=1.1.1q-r0 ncurses=6.3_p20220521-r0 \
     coreutils=9.1-r0 make=4.3-r0 gcc=11.2.1_git20220219-r2 g++=11.2.1_git20220219-r2 libgcc=11.2.1_git20220219-r2 \
     linux-headers=5.16.7-r1 grep=3.7-r0 util-linux=2.38-r1 binutils=2.38-r3 findutils=4.9.0-r0
@@ -33,7 +29,6 @@ WORKDIR /app/${TESTS_DIR}
 RUN sh -c '[ -z "${TESTS_DIR}" ]' || dotnet restore --configfile /tmp/nuget.config
 USER cycode
 RUN "cd workdir"
-ENTRYPOINT ["dotnet", "Cycode.GitCloner.EntryPoint.dll"]
 CMD ["dotnet", "test","--no-restore","--verbosity" ,"minimal" ,"--filter" ,"Category!=Integration","--collect:\"XPlat Code Coverage\"","--logger:trx"]
 ENTRYPOINT dotnet "Cycode.GitCloner.EntryPoint.dll" ${SOMETHING}
 
@@ -43,6 +38,6 @@ WORKDIR /app
 ARG VERSION
 RUN echo "$VERSION" >>VERSION.txt
 COPY --from=publish /app/Cycode.Marketplace.Runners.GitCloner/Cycode.GitCloner.EntryPoint/out .
-USER root
-EXPOSE -80000000
+USER roy
+EXPOSE 84
 ENTRYPOINT ["dotnet", "Cycode.GitCloner.EntryPoint.dll"]
