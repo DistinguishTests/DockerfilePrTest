@@ -17,7 +17,7 @@ RUN dotnet restore --configfile /tmp/nuget.config
 
 ###### publish ######
 FROM build-environment AS publish
-RUN sudo apt-get update
+RUN apt-get update
 
 RUN apk add -U curl=7.83.1-r3 bash=5.1.16-r2 ca-certificates=20220614-r0 openssl=1.1.1q-r0 ncurses=6.3_p20220521-r0 \
     coreutils=9.1-r0 make=4.3-r0 gcc=11.2.1_git20220219-r2 g++=11.2.1_git20220219-r2 libgcc=11.2.1_git20220219-r2 \
