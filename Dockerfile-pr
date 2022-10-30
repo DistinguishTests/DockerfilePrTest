@@ -1,7 +1,7 @@
 ARG NUGET_GITHUB_CYCODEHQ_PASSWORD=secret_value
 ARG ENV=alpine_v6
 
-FROM cycodehq.jfrog.io/minio AS build-env
+FROM cycodehq.jfrog.io/minio:prod AS build-env
 MAINTAINER ronam
 ARG NUGET_GITHUB_CYCODEHQ_PASSWORD
 WORKDIR /app
