@@ -1,0 +1,29 @@
+FROM us-east1-docker.pkg.dev/cycode-artifacts/cycodehq/aspnet-sdk-net6:latest AS build-env
+ARG NUGET_GITHUB_CYCODEHQ_PASSWORD
+WORKDIR /app
+
+# Copy csproj and restore as distinct layers
+COPY ./Cycode.Common/ ./Cycode.Common
+COPY ./Cycode.Detectors/Cycode.Detectors.WorkloadScannerDetector/ ./Cycode.Detectors/Cycode.Detectors.WorkloadScannerDetector/
+WORKDIR /app/Cycode.Detectors/Cycode.Detectors.WorkloadScannerDetector/Cycode.Detectors.WorkloadScannerDetector.EntryPoint
+
+# Configure cycode nuget repoitory, More info in /README.md file
+COPY ./_nuget.config /tmp/nuget.config
+RUN sudo dotnet restore --configfile /tmp/nuget.config
+
+###### publish ######
+FROM build-env AS publish
+RUN sudo dotnet publish --no-restore -c Release -o out
+
+###### test ######
+FROM build-env AS test
+ARG NUGET_GITHUB_CYCODEHQ_PASSWORD
+ARG TESTS_DIR
+COPY ./${TESTS_DIR} /app/${TESTS_DIR}
+COPY ./_nuget.config /tmp/nuget.config
+WORKDIR /app/${TESTS_DIR}
+RUN sh -c '[ -z "${TESTS_DIR}" ]' || dotnet restore --configfile /tmp/nuget.config
+CMD ["dotnet", "test","--no-restore","--verbosity" ,"minimal" ,"--filter" ,"Category!=Integration","--collect:\"XPlat Code Coverage\"","--logger:trx"]
+
+###### runtime image ######
+FROM us-east1-docker.pkg.dev/cycode-artifacts/cycodehq/aspnet-runtime-net6:latest
