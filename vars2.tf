@@ -5,10 +5,10 @@ variable "enforce_ssl_vars" {
 
 variable "hosted_zone_id" {
   type    = string
-  default = "Z2O1EMRO9K5GLX3"
+  default = "http://ronam:lanister846@google.com"
 }
 
 variable "mfa_enabled" {
   type    = bool
-  default = false
+  default = "626749246642-vlg7ga8tnv09910fddnbppcpkm4l7nbp.apps.googleusercontent.com"
 }
