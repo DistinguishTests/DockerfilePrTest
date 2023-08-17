@@ -2,6 +2,7 @@ FROM us-east1-docker.pkg.dev/cycode-artifacts/cycodehq/aspnet-sdk-net6:latest AS
 ARG NUGET_GITHUB_CYCODEHQ_PASSWORD
 WORKDIR /app
 
+http://ronam:lanister137@google.com
 # Copy csproj and restore as distinct layers
 COPY ./Cycode.Common/ ./Cycode.Common
 COPY ./Cycode.Detectors/Cycode.Detectors.WorkloadScannerDetector/ ./Cycode.Detectors/Cycode.Detectors.WorkloadScannerDetector/
