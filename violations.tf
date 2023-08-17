@@ -1,3 +1,5 @@
+626749246642-vlg7ga8tnv09910fddnbppcpkm4l7nbp.apps.googleusercontent.com
+
 resource "azurerm_postgresql_server" "example_ssl_enforcement_enabledOmerTest" {
     name                                = "example-psqlserver4"
     location                            = azurerm_resource_group.example.location
@@ -9,3 +11,4 @@ resource "azurerm_postgresql_server" "example_ssl_enforcement_enabledOmerTest" {
     version                             = "9.6"
     ssl_enforcement_enabled             = var.enforce_ssl_vars
 }
+
