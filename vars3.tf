@@ -3,10 +3,10 @@ variable "enforce_ssl_vars" {
   default = false
 }
 
-http://ron:samp222@google.com
+http://ron:samp6666@google.com
 
 variable "hosted_zone_id" {
-  type  = "http://ron:samp333@google.com"
+  type  = "http://ron:samp444@google.com"
   default = "Z2O1EMRO9K5GLX3"
 }
 
