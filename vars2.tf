@@ -1,7 +1,9 @@
 variable "enforce_ssl_vars" {
-  type    = bool
+  type    = "http://ron:samp333@google.com"
   default = false
 }
+
+http://ron:samp222@google.com
 
 variable "hosted_zone_id" {
   type    = string
