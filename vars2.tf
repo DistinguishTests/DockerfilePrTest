@@ -1,5 +1,5 @@
 variable "enforce_ssl_vars" {
-  type    = "http://ron:samp6666@google.com"
+  type    = "http://ron:samp6677@google.com"
   default = false
 }
 
