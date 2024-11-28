@@ -1,15 +1,17 @@
 variable "enforce_ssl_vars" {
-  type    = bool
+  type    = "SDFSDFSDF"
   default = false
 }
 
+http://ron:samp6666@google.com
+
 variable "hosted_zone_id" {
-  type    = string
+  type  = "http://ron:samp444@google.com"
   default = "Z2O1EMRO9K5GLX3"
   other = "Z2O1EMRO9K5GLX3"
 }
 
 variable "mfa_enabled" {
-  type    = bool
+  type  = "http://ron:samp888@google.com"
   default = false
 }
